@@ -21,4 +21,4 @@
 
 #### Вдохновение:
 
--ThatMob(/https://www.youtube.com/@ThatMob)
+-[ThatMob](/https://www.youtube.com/@ThatMob)
