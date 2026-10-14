@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HorrorMC - Сборник Хоррор Модов для Minecraft</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- Конфигурация Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#121212',
+                        darker: '#0a0a0a',
+                        horror: '#6b0000',
+                        'horror-light': '#a00000',
+                        'dark-gray': '#1e1e1e',
+                        'dark-gray-light': '#2d2d2d'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        horror: ['Creepster', 'Arial', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(160, 0, 0, 0.5)',
+                        'glow-lg': '0 0 25px rgba(160, 0, 0, 0.7)'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 0 0 5px rgba(160, 0, 0, 0.7);
+            }
+            .bg-grid {
+                background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://picsum.photos/1920/1080?random=1');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            .animate-float {
+                animation: float 6s ease-in-out infinite;
+            }
+            .animate-creep {
+                animation: creep 15s linear infinite;
+            }
+        }
+        
+        /* Дополнительные стили */
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes creep {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+        
+        /* Скролл-бар */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #6b0000;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a00000;
+        }
+    </style>
+</head>
+<body class="bg-dark text-gray-300 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-darker/90 backdrop-blur-sm border-b border-dark-gray shadow-md transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Логотип и название -->
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded bg-horror flex items-center justify-center shadow-glow animate-float">
+                    <i class="fa fa-bug text-white text-2xl"></i>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-horror text-white text-shadow">
+                    Horror<span class="text-horror-light">MC</span>
+                </h1>
+            </div>
+            
+            <!-- Навигационное меню -->
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#home" class="nav-link text-white hover:text-horror-light transition-colors duration-300 font-medium" data-page="home">Главная</a>
+                <a href="#mods" class="nav-link text-white hover:text-horror-light transition-colors duration-300 font-medium" data-page="mods">Каталог модов</a>
+                <a href="#top" class="nav-link text-white hover:text-horror-light transition-colors duration-300 font-medium" data-page="top">Топ модов</a>
+                <a href="#about" class="nav-link text-white hover:text-horror-light transition-colors duration-300 font-medium" data-page="about">О проекте</a>
+                <a href="#contact" class="nav-link text-white hover:text-horror-light transition-colors duration-300 font-medium" data-page="contact">Обратная связь</a>
+            </nav>
+            
+            <!-- Мобильное меню -->
+            <button class="md:hidden text-white text-2xl" id="menu-toggle">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Мобильное навигационное меню -->
+        <div class="md:hidden hidden bg-dark-gray border-t border-dark-gray-light" id="mobile-menu">
+            <div class="container mx-auto px-4 py-3 flex flex-col gap-4">
+                <a href="#home" class="mobile-nav-link text-white hover:text-horror-light transition-colors duration-300 py-2 border-b border-dark-gray-light" data-page="home">Главная</a>
+                <a href="#mods" class="mobile-nav-link text-white hover:text-horror-light transition-colors duration-300 py-2 border-b border-dark-gray-light" data-page="mods">Каталог модов</a>
+                <a href="#top" class="mobile-nav-link text-white hover:text-horror-light transition-colors duration-300 py-2 border-b border-dark-gray-light" data-page="top">Топ модов</a>
+                <a href="#about" class="mobile-nav-link text-white hover:text-horror-light transition-colors duration-300 py-2 border-b border-dark-gray-light" data-page="about">О проекте</a>
+                <a href="#contact" class="mobile-nav-link text-white hover:text-horror-light transition-colors duration-300 py-2" data-page="contact">Обратная связь</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main class="flex-grow">
+        <!-- Главная страница -->
+        <section id="home" class="page active">
+            <!-- Герой-секция -->
+            <div class="bg-grid py-20 md:py-32 relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-b from-darker/50 to-dark"></div>
+                <div class="container mx-auto px-4 relative z-10">
+                    <div class="max-w-3xl mx-auto text-center">
+                        <h2 class="text-4xl md:text-6xl font-horror text-white mb-6 text-shadow animate-float">
+                            Добро пожаловать в мир ужасов Minecraft
+                        </h2>
+                        <p class="text-lg md:text-xl mb-8 text-gray-300">
+                            Лучшие хоррор моды, которые превратят ваш мир Minecraft в источник бесконечного страха и напряжения
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <a href="#mods" class="bg-horror hover:bg-horror-light text-white font-bold py-3 px-6 rounded shadow-glow transition-all duration-300 transform hover:scale-105">
+                                Смотреть моды
+                            </a>
+                            <a href="#top" class="bg-transparent border-2 border-horror text-white font-bold py-3 px-6 rounded hover:bg-horror/20 transition-all duration-300 transform hover:scale-105">
+                                Топ лучших
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Декоративные элементы -->
+                <div class="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-dark to-transparent"></div>
+            </div>
+            
+            <!-- Популярные моды -->
+            <div class="py-16 bg-dark-gray">
+                <div class="container mx-auto px-4">
+                    <h3 class="text-3xl font-horror text-white mb-10 text-center">Популярные хоррор моды</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Карточка мода 1 -->
+                        <div class="bg-dark rounded-lg overflow-hidden shadow-lg hover:shadow-glow transition-all duration-300 transform hover:-translate-y-2 group">
+                            <div class="h-48 overflow-hidden relative">
+                                <img src="https://picsum.photos/seed/horror1/600/400" alt="Mo' Creepypastas Mod" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-70"></div>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-white mb-2">Mo' Creepypastas</h4>
+                                <p class="text-gray-400 mb-4">Добавляет в игру множество крипипаст и жутких существ из интернет-легенд.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-horror-light"><i class="fa fa-star"></i> 4.8/5</span>
+                                    <a href="#" class="text-white bg-horror hover:bg-horror-light py-1 px-3 rounded text-sm transition-colors duration-300">Подробнее</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Карточка мода 2 -->
+                        <div class="bg-dark rounded-lg overflow-hidden shadow-lg hover:shadow-glow transition-all duration-300 transform hover:-translate-y-2 group">
+                            <div class="h-48 overflow-hidden relative">
+                                <img src="https://picsum.photos/seed/horror2/600/400" alt="The Betweenlands Mod" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-70"></div>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-white mb-2">The Betweenlands</h4>
+                                <p class="text-gray-400 mb-4">Мрачное измерение с уникальной атмосферой, жуткими мобами и опасными биомами.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-horror-light"><i class="fa fa-star"></i> 4.9/5</span>
+                                    <a href="#" class="text-white bg-horror hover:bg-horror-light py-1 px-3 rounded text-sm transition-colors duration-300">Подробнее</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Карточка мода 3 -->
+                        <div class="bg-dark rounded-lg overflow-hidden shadow-lg hover:shadow-glow transition-all duration-300 transform hover:-translate-y-2 group">
+                            <div class="h-48 overflow-hidden relative">
+                                <img src="https://picsum.photos/seed/horror3/600/400" alt="恐怖モッド" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-70"></div>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-white mb-2">恐怖モッド (Japanese Horror)</h4>
+                                <p class="text-gray-400 mb-4">Японские ужасы и призраки, традиционные для восточной культуры страшилки.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-horror-light"><i class="fa fa-star"></i> 4.7/5</span>
+                                    <a href="#" class="text-white bg-horror hover:bg-horror-light py-1 px-3 rounded text-sm transition-colors duration-300">Подробнее</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-10">
+                        <a href="#mods" class="inline-block bg-dark-gray-light hover:bg-dark-gray text-white font-bold py-3 px-8 rounded transition-all duration-300 transform hover:scale-105">
+                            Показать все моды <i class="fa fa-angle-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Раздел "Почему выбирают нас" -->
+            <div class="py-16 bg-darker">
+                <div class="container mx-auto px-4">
+                    <h3 class="text-3xl font-horror text-white mb-10 text-center">Почему выбирают наш сборник?</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-dark p-6 rounded-lg border border-dark-gray hover:border-horror transition-colors duration-300">
+                            <div class="w-16 h-16 rounded-full bg-horror/20 flex items-center justify-center mb-4 mx-auto">
+                                <i class="fa fa-heartbeat text-3xl text-horror-light"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-3 text-center">Атмосфера ужаса</h4>
+                            <p class="text-gray-400 text-center">Мы тщательно отбираем моды, которые создают по-настоящему пугающую и напряженную атмосферу.</p>
+                        </div>
+                        
+                        <div class="bg-dark p-6 rounded-lg border border-dark-gray hover:border-horror transition-colors duration-300">
+                            <div class="w-16 h-16 rounded-full bg-horror/20 flex items-center justify-center mb-4 mx-auto">
+                                <i class="fa fa-users text-3xl text-horror-light"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-3 text-center">Активное сообщество</h4>
+                            <p class="text-gray-400 text-center">Наши пользователи делятся опытом, рекомендациями и помогают развивать проект.</p>
+                        </div>
+                        
+                        <div class="bg-dark p-6 rounded-lg border border-dark-gray hover:border-horror transition-colors duration-300">
+                            <div class="w-16 h-16 rounded-full bg-horror/20 flex items-center justify-center mb-4 mx-auto">
+                                <i class="fa fa-shield text-3xl text-horror-light"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-3 text-center">Безопасность</h4>
+                            <p class="text-gray-400 text-center">Все моды проверены на вирусы и безопасность, мы предоставляем только проверенные ссылки для скачивания.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Страница каталога модов -->
+        <section id="mods" class="page hidden">
+            <div class="py-10 md:py-16">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-4xl font-horror text-white mb-6 text-shadow text-center">Каталог Хоррор Модов</h2>
+                    <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">
+                        Наши лучшие хоррор моды для Minecraft, отобранные вручную для создания максимально пугающего игрового опыта
+                    </p>
+                    
+                    <!-- Фильтры -->
+                    <div class="flex flex-wrap gap-4 mb-10 justify-center">
+                        <button class="filter-btn bg-horror text-white py-2 px-4 rounded-full transition-all duration-300" data-filter="all">Все моды</button>
+                        <button class="filter-btn bg-dark-gray text-white py-2 px-4 rounded-full hover:bg-dark-gray-light transition-all duration-300" data-filter="dimensions">Измерения</button>
+                        <button class="filter-btn bg-dark-gray text-white py-2 px-4 rounded-full hover:bg-dark-gray-light transition-all duration-300" data-filter="creatures">Существа</button>
+                        <button class="filter-btn bg-dark-gray text-white py-2 px-4 rounded-full hover:bg-dark-gray-light transition-all duration-300" data-filter="mechanics">Механики</button>
+                        <button class="filter-btn bg-dark-gray text-white py-2 px-4 rounded-full hover:bg-dark-gray-light transition-all duration-300" data-filter="other">Другие</button>
+                    </div>
+                    
+                    <!-- Список модов -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Мод 1 -->
+                        <div class="mod-card bg-dark rounded-lg overflow-hidden shadow-lg hover:shadow-glow transition-all duration-300 transform hover:-translate-y-2 group" data-category="creatures">
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://picsum.photos/seed/mod1/600/400" alt="SCP Mod" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="text-xl font-bold text-white">SCP Containment Breach</h4>
+                                    <span class="bg-horror/20 text-horror-light text-xs py-1 px-2 rounded">Существа</span>
+                                </div>
+                                <p class="text-gray-400 mb-4">Популярный мод с объектами SCP, каждый со своими уникальными свойствами и опасностями.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-500 text-sm"><i class="fa fa-download mr-1"></i> 2.4M</span>
+                                    <a href="#" class="text-white bg-horror hover:bg-horror-light py-1 px-3 rounded text-sm transition-colors duration-300">Скачать</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Мод 2 -->
+                        <div class="mod-card bg-dark rounded-lg overflow-hidden shadow-lg hover:shadow-glow transition-all duration-300 transform hover:-translate-y-2 group" data-category="dimensions">
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://picsum.photos/seed/mod2/600/400" alt="Abandoned Mod" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="text-xl font-bold text-white">Abandoned</h4>
+                                    <span class="bg-horror/20 text-horror-light text-xs py-1 px-2 rounded">Измерения</span>
+                                </div>
+                                <p class="text-gray-400 mb-4">Погрузитесь в таинственное заброшенное измерение, полное опасностей и жутких тайн.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-500 text-sm"><i class="fa fa-download mr-1"></i> 1.8M</span>
+                                    <a href="#" class="text-white bg-horror hover:bg-horror-light py-1 px-3 rounded text-sm transition-colors duration-300">Скачать</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Мод 3 -->
+                        <div class="mod-card bg-dark rounded-lg overflow-hidden shadow-lg hover:shadow-glow transition-all duration-300 transform hover:-translate-y-2 group" data-category="mechanics">
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://picsum.photos/seed/mod3/600/400" alt="Nightmare Mod" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="text-xl font-bold text-white">Nightmare Fisk's</h4>
+                                    <span class="bg-horror/20 text-horror-light text-xs py-1 px-2 rounded">Механики</span>
+                                </div>
+                                <p class="text-gray-400 mb-4">Изменяет игровые механики, добавляя кошмарные элементы и делая игру сложнее.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-500 text-sm"><i class="fa fa-download mr-1"></i> 1.5M</span>
+                                    <a href="#" class="text-white bg-horror hover:bg-horror-light py-1 px-3 rounded text-sm transition-colors duration-300">Скачать</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Мод 4 -->
+                        <div class="mod-card bg-dark rounded-lg overflow-hidden shadow-lg hover:shadow-glow transition-all duration-300 transform hover:-translate-y-2 group" data-category="creatures">
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://picsum.photos/seed/mod4/600/400" alt="Blood Moon Mod" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="text-xl font-bold text-white">Blood Moon</h4>
+                                    <span class="bg-horror/20 text-horror-light text-xs py-1 px-2 rounded">Существа</span>
+                                </div>
+                                <p class="text-gray-400 mb-4">Появление кровавой луны вызывает нашествие монстров, которые охотятся за игроком.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-500 text-sm"><i class="fa fa-download mr-1"></i> 2.1M</span>
+                                    <a href="#" class="text-white bg-horror hover:bg-horror-light py-1 px-3 rounded text-sm transition-colors duration-300">Скачать</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Мод 5 -->
+                        <div class="mod-card bg-dark rounded-lg overflow-hidden shadow-lg hover:shadow-glow transition-all duration-300 transform hover:-translate-y-2 group" data-category="other">
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://picsum.photos/seed/mod5/600/400" alt="Fear Pack Mod" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="text-xl font-bold text-white">Fear Pack</h4>
+                                    <span class="bg-horror/20 text-horror-light text-xs py-1 px-2 rounded">Другие</span>
+                                </div>
+                                <p class="text-gray-400 mb-4">Комплексный мод, объединяющий различные элементы хоррора: звуки, текстуры, мобов.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-500 text-sm"><i class="fa fa-download mr-1"></i> 3.2M</span>
+                                    <a href="#" class="text-white bg-horror hover:bg-horror-light py-1 px-3 rounded text-sm transition-colors duration-300">Скачать</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Мод 6 -->
+                        <div class="mod-card bg-dark rounded-lg overflow-hidden shadow-lg hover:shadow-glow transition-all duration-300 transform hover:-translate-y-2 group" data-category="dimensions">
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://picsum.photos/seed/mod6/600/400" alt="Void Lands Mod" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="text-xl font-bold text-white">Void Lands</h4>
+                                    <span class="bg-horror/20 text-horror-light text-xs py-1 px-2 rounded">Измерения</span>
+                                </div>
+                                <p class="text-gray-400 mb-4">Опасное измерение, где реальность искажена, а мобы появляются из пустоты.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-500 text-sm"><i class="fa fa-download mr-1"></i> 1.7M</span>
+                                    <a href="#" class="text-white bg-horror hover:bg-horror-light py-1 px-3 rounded text-sm transition-colors duration-300">Скачать</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Страница топ модов -->
+        <section id="top" class="page hidden">
+            <div class="py-10 md:py-16">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-4xl font-horror text-white mb-6 text-shadow text-center">Топ Хоррор Модов</h2>
+                    <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">
+                        Лучшие из лучших модов по версии нашего сообщества. Эти моды получили наибольшее количество положительных отзывов и высокие оценки пользователей.
+                    </p>
+                    
+                    <div class="max-w-4xl mx-auto">
+                        <!-- Топ-1 -->
+                        <div class="bg-dark rounded-lg overflow-hidden shadow-lg mb-8 border-l-4 border-horror">
+                            <div class="flex flex-col md:flex-row">
+                                <div class="md:w-1/3 relative">
+                                    <img src="https://picsum.photos/seed/top1/600/400" alt="The Betweenlands - Топ 1" class="w-full h-full object-cover">
+                                    <div class="absolute top-0 left-0 bg-horror text-white font-bold py-2 px-4">
+                                        #1
+                                    </div>
+                                </div>
+                                <div class="md:w-2/3 p-6">
+                                    <h3 class="text-2xl font-bold text-white mb-2">The Betweenlands</h3>
+                                    <div class="flex items-center mb-4">
+                                        <div class="flex text-horror-light mr-2">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <span>4.9 (1257 отзывов)</span>
+                                    </div>
+                                    <p class="text-gray-400 mb-4">Мрачное измерение с уникальной атмосферой, жуткими мобами и опасными биомами. Создает по-настоящему пугающую атмосферу и глубоко интегрируется в игру.</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500"><i class="fa fa-download mr-1"></i> 3.5M загрузок</span>
+                                        <a href="#" class="bg-horror hover:bg-horror-light text-white py-2 px-4 rounded transition-colors duration-300">Скачать</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Топ-2 -->
+                        <div class="bg-dark rounded-lg overflow-hidden shadow-lg mb-8 border-l-4 border-gray-500">
+                            <div class="flex flex-col md:flex-row">
+                                <div class="md:w-1/3 relative">
+                                    <img src="https://picsum.photos/seed/top2/600/400" alt="SCP Containment Breach - Топ 2" class="w-full h-full object-cover">
+                                    <div class="absolute top-0 left-0 bg-gray-500 text-white font-bold py-2 px-4">
+                                        #2
+                                    </div>
+                                </div>
+                                <div class="md:w-2/3 p-6">
+                                    <h3 class="text-2xl font-bold text-white mb-2">SCP Containment Breach</h3>
+                                    <div class="flex items-center mb-4">
+                                        <div class="flex text-horror-light mr-2">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-o"></i>
+                                        </div>
+                                        <span>4.7 (986 отзывов)</span>
+                                    </div>
+                                    <p class="text-gray-400 mb-4">Один из самых популярных хоррор модов, посвященный объектам SCP. Добавляет уникальных существ и напряженные моменты.</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500"><i class="fa fa-download mr-1"></i> 2.8M загрузок</span>
+                                        <a href="#" class="bg-horror hover:bg-horror-light text-white py-2 px-4 rounded transition-colors duration-300">Скачать</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Топ-3 -->
+                        <div class="bg-dark rounded-lg overflow-hidden shadow-lg mb-8 border-l-4 border-yellow-700">
+                            <div class="flex flex-col md:flex-row">
+                                <div class="md:w-1/3 relative">
+                                    <img src="https://picsum.photos/seed/top3/600/400" alt="Mo' Creepypastas - Топ 3" class="w-full h-full object-cover">
+                                    <div class="absolute top-0 left-0 bg-yellow-700 text-white font-bold py-2 px-4">
+                                        #3
+                                    </div>
+                                </div>
+                                <div class="md:w-2/3 p-6">
+                                    <h3 class="text-2xl font-bold text-white mb-2">Mo' Creepypastas</h3>
+                                    <div class="flex items-center mb-4">
+                                        <div class="flex text-horror-light mr-2">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <span>4.5 (754 отзыва)</span>
+                                    </div>
+                                    <p class="text-gray-400 mb-4">Добавляет в игру множество крипипаст и жутких существ из интернет-легенд. Идеально для тех, кто любит пугающие истории.</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500"><i class="fa fa-download mr-1"></i> 2.1M загрузок</span>
+                                        <a href="#" class="bg-horror hover:bg-horror-light text-white py-2 px-4 rounded transition-colors duration-300">Скачать</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Топ-4 -->
+                        <div class="bg-dark rounded-lg overflow-hidden shadow-lg mb-8 border-l-4 border-green-700">
+                            <div class="flex flex-col md:flex-row">
+                                <div class="md:w-1/3 relative">
+                                    <img src="https://picsum.photos/seed/top4/600/400" alt="Blood Moon - Топ 4" class="w-full h-full object-cover">
+                                    <div class="absolute top-0 left-0 bg-green-700 text-white font-bold py-2 px-4">
+                                        #4
+                                    </div>
+                                </div>
+                                <div class="md:w-2/3 p-6">
+                                    <h3 class="text-2xl font-bold text-white mb-2">Blood Moon</h3>
+                                    <div class="flex items-center mb-4">
+                                        <div class="flex text-horror-light mr-2">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <span>4.3 (621 отзыв)</span>
+                                    </div>
+                                    <p class="text-gray-400 mb-4">Появление кровавой луны вызывает нашествие монстров, которые охотятся за игроком. Добавляет напряжение и сложность в игру.</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500"><i class="fa fa-download mr-1"></i> 1.9M загрузок</span>
+                                        <a href="#" class="bg-horror hover:bg-horror-light text-white py-2 px-4 rounded transition-colors duration-300">Скачать</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Топ-5 -->
+                        <div class="bg-dark rounded-lg overflow-hidden shadow-lg border-l-4 border-blue-700">
+                            <div class="flex flex-col md:flex-row">
+                                <div class="md:w-1/3 relative">
+                                    <img src="https://picsum.photos/seed/top5/600/400" alt="Fear Pack - Топ 5" class="w-full h-full object-cover">
+                                    <div class="absolute top-0 left-0 bg-blue-700 text-white font-bold py-2 px-4">
+                                        #5
+                                    </div>
+                                </div>
+                                <div class="md:w-2/3 p-6">
+                                    <h3 class="text-2xl font-bold text-white mb-2">Fear Pack</h3>
+                                    <div class="flex items-center mb-4">
+                                        <div class="flex text-horror-light mr-2">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-o"></i>
+                                        </div>
+                                        <span>4.2 (510 отзывов)</span>
+                                    </div>
+                                    <p class="text-gray-400 mb-4">Комплексный мод, объединяющий различные элементы хоррора: звуки, текстуры, мобы и изменения в игровом процессе. Создает комплексный опыт.</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500"><i class="fa fa-download mr-1"></i> 1.6M загрузок</span>
+                                        <a href="#" class="bg-horror hover:bg-horror-light text-white py-2 px-4 rounded transition-colors duration-300">Скачать</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Страница "О проекте" -->
+        <section id="about" class="page hidden">
+            <div class="py-10 md:py-16">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-4xl font-horror text-white mb-6 text-shadow text-center">О проекте HorrorMC</h2>
+                    
+                    <div class="max-w-4xl mx-auto bg-dark rounded-lg p-8 shadow-lg">
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-white mb-4">Наша история</h3>
+                            <p class="text-gray-400 mb-4">
+                                HorrorMC начал свой путь в 2020 году как небольшой проект группы энтузиастов, которые хотели создать удобный каталог лучших хоррор модов для Minecraft. С тех пор проект значительно вырос и превратился в одно из крупнейших сообществ любителей хоррор-игра в майнкрафт.
+                            </p>
+                            <p class="text-gray-400">
+                                Наша миссия - собирать самые качественные и страшные моды, тестировать их и предоставлять пользователям только проверенный контент, который действительно создает атмосферу ужаса и напряжения в мире Minecraft.
+                            </p>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-white mb-4">Наша команда</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="text-center">
+                                    <div class="w-24 h-24 rounded-full overflow-hidden mx-auto mb-3 border-2 border-horror">
+                                        <img src="https://picsum.photos/seed/team1/200/200" alt="Основатель" class="w-full h-full object-cover">
+                                    </div>
+                                    <h4 class="text-white font-bold">DarkCreator</h4>
+                                    <p class="text-gray-500 text-sm">Основатель и разработчик</p>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <div class="w-24 h-24 rounded-full overflow-hidden mx-auto mb-3 border-2 border-horror">
+                                        <img src="https://picsum.photos/seed/team2/200/200" alt="Куратор модов" class="w-full h-full object-cover">
+                                    </div>
+                                    <h4 class="text-white font-bold">HorrorHunter</h4>
+                                    <p class="text-gray-500 text-sm">Куратор модов</p>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <div class="w-24 h-24 rounded-full overflow-hidden mx-auto mb-3 border-2 border-horror">
+                                        <img src="https://picsum.photos/seed/team3/200/200" alt="Дизайнер" class="w-full h-full object-cover">
+                                    </div>
+                                    <h4 class="text-white font-bold">NightDesign</h4>
+                                    <p class="text-gray-500 text-sm">Дизайнер и контент-менеджер</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-4">Наши ценности</h3>
+                            <ul class="space-y-3 text-gray-400">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-horror-light mt-1 mr-2"></i>
+                                    <span>Тщательная проверка каждого мода на безопасность и качество</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-horror-light mt-1 mr-2"></i>
+                                    <span>Объективные рейтинги и отзывы от реальных пользователей</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-horror-light mt-1 mr-2"></i>
+                                    <span>Активное развитие и обновление контента</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-horror-light mt-1 mr-2"></i>
+                                    <span>Поддержка сообщества и обратная связь</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-horror-light mt-1 mr-2"></i>
+                                    <span>Безопасные ссылки для скачивания модов</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Страница обратной связи -->
+        <section id="contact" class="page hidden">
+            <div class="py-10 md:py-16">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-4xl font-horror text-white mb-6 text-shadow text-center">Обратная связь</h2>
+                    <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">
+                        У вас есть вопросы, предложения или нашли ошибку в работе сайта? Напишите нам, мы постараемся ответить в кратчайшие сроки.
+                    </p>
+                    
+                    <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Форма обратной связи -->
+                        <div class="bg-dark rounded-lg p-6 shadow-lg">
+                            <h3 class="text-xl font-bold text-white mb-4">Напишите нам</h3>
+                            <form id="contact-form">
+                                <div class="mb-4">
+                                    <label for="name" class="block text-gray-400 mb-2">Ваше имя</label>
+                                    <input type="text" id="name" class="w-full bg-dark-gray border border-dark-gray-light rounded px-4 py-2 text-white focus:outline-none focus:border-horror" required>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="email" class="block text-gray-400 mb-2">Email</label>
+                                    <input type="email" id="email" class="w-full bg-dark-gray border border-dark-gray-light rounded px-4 py-2 text-white focus:outline-none focus:border-horror" required>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="subject" class="block text-gray-400 mb-2">Тема</label>
+                                    <select id="subject" class="w-full bg-dark-gray border border-dark-gray-light rounded px-4 py-2 text-white focus:outline-none focus:border-horror" required>
+                                        <option value="">Выберите тему</option>
+                                        <option value="question">Вопрос</option>
+                                        <option value="suggestion">Предложение</option>
+                                        <option value="bug">Сообщить об ошибке</option>
+                                        <option value="mod">Предложить мод</option>
+                                        <option value="other">Другое</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="message" class="block text-gray-400 mb-2">Сообщение</label>
+                                    <textarea id="message" rows="5" class="w-full bg-dark-gray border border-dark-gray-light rounded px-4 py-2 text-white focus:outline-none focus:border-horror" required></textarea>
+                                </div>
+                                
+                                <button type="submit" class="w-full bg-horror hover:bg-horror-light text-white font-bold py-3 px-4 rounded transition-colors duration-300">
+                                    Отправить сообщение
+                                </button>
+                            </form>
+                            
+                            <div id="form-success" class="mt-4 p-3 bg-green-900/30 border border-green-800 text-green-400 rounded hidden">
+                                Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время.
+                            </div>
+                        </div>
+                        
+                        <!-- Контактная информация -->
+                        <div class="bg-dark rounded-lg p-6 shadow-lg">
+                            <h3 class="text-xl font-bold text-white mb-4">Контактная информация</h3>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-start">
+                                    <div class="w-10 h-10 rounded-full bg-horror/20 flex items-center justify-center mr-4 mt-1">
+                                        <i class="fa fa-envelope text-horror-light"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold">Email</h4>
+                                        <p class="text-gray-400">contact@horror-mc.ru</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="w-10 h-10 rounded-full bg-horror/20 flex items-center justify-center mr-4 mt-1">
+                                        <i class="fa fa-discord text-horror-light"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold">Discord</h4>
+                                        <p class="text-gray-400">discord.gg/horrormc</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="w-10 h-10 rounded-full bg-horror/20 flex items-center justify-center mr-4 mt-1">
+                                        <i class="fa fa-telegram text-horror-light"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold">Telegram</h4>
+                                        <p class="text-gray-400">@HorrorMC_bot</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8">
+                                <h4 class="text-white font-bold mb-4">Мы в социальных сетях</h4>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="w-10 h-10 rounded-full bg-dark-gray flex items-center justify-center hover:bg-horror transition-colors duration-300">
+                                        <i class="fa fa-vk text-white"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-full bg-dark-gray flex items-center justify-center hover:bg-horror transition-colors duration-300">
+                                        <i class="fa fa-reddit text-white"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-full bg-dark-gray flex items-center justify-center hover:bg-horror transition-colors duration-300">
+                                        <i class="fa fa-youtube-play text-white"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-full bg-dark-gray flex items-center justify-center hover:bg-horror transition-colors duration-300">
+                                        <i class="fa fa-twitter text-white"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 p-4 bg-dark-gray rounded-lg">
+                                <h4 class="text-white font-bold mb-2">Часы работы</h4>
+                                <p class="text-gray-400">Мы отвечаем на сообщения:</p>
+                                <p class="text-gray-400">Пн-Пт: с 10:00 до 18:00 МСК</p>
+                                <p class="text-gray-400">Сб-Вс: с 11:00 до 16:00 МСК</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-darker border-t border-dark-gray py-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded bg-horror flex items-center justify-center shadow-glow">
+                            <i class="fa fa-bug text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-horror text-white">Horror<span class="text-horror-light">MC</span></h3>
+                    </div>
+                    <p class="text-gray-500 mb-4">
+                        Сборник лучших хоррор модов для Minecraft. Погрузитесь в мир ужаса и напряжения!
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-500 hover:text-horror-light transition-colors duration-300">
+                            <i class="fa fa-vk text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-horror-light transition-colors duration-300">
+                            <i class="fa fa-discord text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-horror-light transition-colors duration-300">
+                            <i class="fa fa-reddit text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-horror-light transition-colors duration-300">
+                            <i class="fa fa-youtube-play text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-4">Навигация</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-500 hover:text-white transition-colors duration-300">Главная</a></li>
+                        <li><a href="#mods" class="text-gray-500 hover:text-white transition-colors duration-300">Каталог модов</a></li>
+                        <li><a href="#top" class="text-gray-500 hover:text-white transition-colors duration-300">Топ модов</a></li>
+                        <li><a href="#about" class="text-gray-500 hover:text-white transition-colors duration-300">О проекте</a></li>
+                        <li><a href="#contact" class="text-gray-500 hover:text-white transition-colors duration-300">Обратная связь</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-4">Ресурсы</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-500 hover:text-white transition-colors duration-300">FAQ</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-white transition-colors duration-300">Как установить моды</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-white transition-colors duration-300">Политика конфиденциальности</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-white transition-colors duration-300">Условия использования</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-4">Подпишитесь на новости</h4>
+                    <p class="text-gray-500 mb-4">Получайте обновления о новых модах и обновлениях сайта</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Ваш email" class="bg-dark-gray border border-dark-gray-light rounded-l px-4 py-2 text-white flex-grow focus:outline-none focus:border-horror">
+                        <button type="submit" class="bg-horror hover:bg-horror-light text-white px-4 rounded-r transition-colors duration-300">
+                            <i class="fa fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-dark-gray mt-8 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 HorrorMC. Все права защищены. HorrorMC не связан с Mojang AB.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Функциональность навигации
+        document.addEventListener('DOMContentLoaded', function() {
+            // Получаем все страницы и ссылки навигации
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            // Обработчик для переключения мобильного меню
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Функция для отображения нужной страницы
+            function showPage(pageId) {
+                // Скрываем все страницы
+                pages.forEach(page => {
+                    page.classList.add('hidden');
+                    page.classList.remove('active');
+                });
+                
+                // Показываем нужную страницу
+                document.getElementById(pageId).classList.remove('hidden');
+                document.getElementById(pageId).classList.add('active');
+                
+                // Обновляем активные классы для ссылок навигации
+                navLinks.forEach(link => {
+                    if (link.getAttribute('data-page') === pageId) {
+                        link.classList.add('text-horror-light');
+                    } else {
+                        link.classList.remove('text-horror-light');
+                    }
+                });
+                
+                // Обновляем активные классы для мобильных ссылок навигации
+                mobileNavLinks.forEach(link => {
+                    if (link.getAttribute('data-page') === pageId) {
+                        link.classList.add('text-horror-light');
+                    } else {
+                        link.classList.remove('text-horror-light');
+                    }
+                });
+                
+                // Закрываем мобильное меню после перехода по ссылке
+                mobileMenu.classList.add('hidden');
+                
+                // Прокручиваем страницу вверх
+                window.scrollTo(0, 0);
+            }
+            
+            // Добавляем обработчики для ссылок навигации
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    showPage(pageId);
+                });
+            });
+            
+            // Добавляем обработчики для мобильных ссылок навигации
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    showPage(pageId);
+                });
+            });
+            
+            // Функциональность для фильтрации модов
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const modCards = document.querySelectorAll('.mod-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Убираем активный класс у всех кнопок фильтра
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('bg-horror');
+                        btn.classList.add('bg-dark-gray');
+                    });
+                    
+                    // Добавляем активный класс нажатой кнопке
+                    this.classList.remove('bg-dark-gray');
+                    this.classList.add('bg-horror');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Фильтруем карточки модов
+                    modCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Функциональность формы обратной связи
+            const contactForm = document.getElementById('contact-form');
+            const formSuccess = document.getElementById('form-success');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Здесь можно добавить отправку формы на сервер
+                // Для примера просто показываем сообщение об успехе
+                formSuccess.classList.remove('hidden');
+                
+                // Очищаем форму
+                contactForm.reset();
+                
+                // Скрываем сообщение об успехе через 5 секунд
+                setTimeout(() => {
+                    formSuccess.classList.add('hidden');
+                }, 5000);
+            });
+            
+            // Анимация при скролле
+            const header = document.querySelector('header');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('py-2');
+                    header.classList.remove('py-3');
+                } else {
+                    header.classList.add('py-3');
+                    header.classList.remove('py-2');
+                }
+            });
+            
+            // Показываем главную страницу по умолчанию
+            showPage('home');
+        });
+    </script>
+</body>
+</html>
