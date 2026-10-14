@@ -19,6 +19,34 @@
 - Тсуру Лиамвирс 
 (Кабельчук Александра Сергеевна "ИПо8583")
 
-#### Вдохновение:
+#### Кто вдохновил:
 
-- ThatMob(/https://www.youtube.com/@ThatMob)
+- ThatMob (/https://www.youtube.com/@ThatMob)
+- GroxMC (/https://www.youtube.com/@GroxMC)
+- JustWhispy (/https://www.youtube.com/@JustWhispy)
+- Twixxel (/https://www.youtube.com/@Twixxel_lesgo)
+- FroggyDude (/https://www.youtube.com/@FroggyDudeMC)
+
+#### Структура проекта
+
+monstcraft-mods/
+├── index.html                # Главная страница с подборкой топовых модов
+├── pages/                    # Статические страницы сайта
+│   ├── mods.html             # Страница со всеми модами
+│   ├── about.html            # О сайте
+│   ├── install-guide.html    # Руководство по установке модов
+│   └── 404.html              # Страница ошибки
+├── css/                      # Стили
+│   ├── main.css              # Общие стили для всего сайта
+│   ├── themes.css            # Стили для темной/светлой темы
+│   └── adaptivity.css        # Стили для адаптивной верстки
+├── js/                       # Скрипты
+│   ├── theme-toggle.js       # Скрипт переключения темы
+│   ├── search.js             # Скрипт поиска по контенту
+│   ├── animations.js         # Скрипт для JS эффектов
+│   └── modal.js              # Скрипт для модальных окон с описаниями модов
+├── assets/                   # Медиафайлы
+│   ├── images/               # Изображения (скриншоты модов, логотипы, иконки)
+│   ├── icons/                # Иконки для меню, кнопок и т.д.
+│   └── fonts/                # Шрифты
+└── README.md                 # Документация проекта (этот файл)
