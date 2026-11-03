@@ -21,11 +21,11 @@
 
 #### Кто вдохновил:
 
-- ThatMob (/https://www.youtube.com/@ThatMob)
-- GroxMC (/https://www.youtube.com/@GroxMC)
-- JustWhispy (/https://www.youtube.com/@JustWhispy)
-- Twixxel (/https://www.youtube.com/@Twixxel_lesgo)
-- FroggyDude (/https://www.youtube.com/@FroggyDudeMC)
+- [ThatMob](/https://www.youtube.com/@ThatMob)
+- [GroxMC](/https://www.youtube.com/@GroxMC)
+- [JustWhispy](/https://www.youtube.com/@JustWhispy)
+- [Twixxel](/https://www.youtube.com/@Twixxel_lesgo)
+- [FroggyDude](/https://www.youtube.com/@FroggyDudeMC)
 
 #### Структура проекта
 
